@@ -1,3 +1,17 @@
+/*
+* Copyright (c) 2018 Dirli <litandrej85@gmail.com>
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*/
+
 public class SysMonitorApplet.Widgets.SettingsView : Gtk.Grid {
     private Gtk.Switch cpu_switch;
     private Gtk.Switch ram_switch;
@@ -10,12 +24,12 @@ public class SysMonitorApplet.Widgets.SettingsView : Gtk.Grid {
         this.settings = settings;
         orientation = Gtk.Orientation.HORIZONTAL;
         hexpand = true;
+        row_spacing = 6;
 
         var title_label = new Gtk.Label (_("Show title's"));
         title_switch = new Gtk.Switch ();
         title_switch.set_halign (Gtk.Align.END);
         title_switch.set_hexpand (true);
-        title_switch.margin_bottom = title_label.margin_bottom = 6;
         title_switch.margin_top = title_label.margin_top = 6;
         title_switch.margin_end = title_label.margin_start = 9;
 
@@ -23,14 +37,12 @@ public class SysMonitorApplet.Widgets.SettingsView : Gtk.Grid {
         cpu_switch = new Gtk.Switch ();
         cpu_switch.set_halign (Gtk.Align.END);
         cpu_switch.set_hexpand (true);
-        cpu_switch.margin_bottom = cpu_label.margin_bottom = 6;
         cpu_switch.margin_end = cpu_label.margin_start = 9;
 
         var ram_label = new Gtk.Label (_("Show ram"));
         ram_switch = new Gtk.Switch ();
         ram_switch.set_halign (Gtk.Align.END);
         ram_switch.set_hexpand (true);
-        ram_switch.margin_bottom = ram_label.margin_bottom = 6;
         ram_switch.margin_end = ram_label.margin_start = 9;
 
         var interval_label = new Gtk.Label (_("Update interval (s)"));

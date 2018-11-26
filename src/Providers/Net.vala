@@ -1,16 +1,34 @@
+/*
+* Copyright (c) 2018 Dirli <litandrej85@gmail.com>
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*/
+
 public class SysMonitorApplet.Providers.Net  : GLib.Object {
     public Gee.HashMap<string, string> devices_map;
+
     public Net () {
         devices_map = new Gee.HashMap<string, string> ();
         GTop.NetList netlist;
         var devices = GTop.get_netlist (out netlist);
+
         for (uint j = 0; j < netlist.number; ++j) {
             var device = devices[j];
+
             if (device != "lo" && device.substring (0, 3) != "tun") {
                 devices_map[device] = "0:0";
             }
         }
     }
+
     public Gee.HashMap<string, string> get_bytes() {
         Gee.HashMap<string, string> net_speed = new Gee.HashMap<string, string> ();
         GTop.NetList netlist;
@@ -19,6 +37,7 @@ public class SysMonitorApplet.Providers.Net  : GLib.Object {
 
         for (uint j = 0; j < netlist.number; ++j) {
             var device = devices[j];
+
             if (device != "lo" && device.substring (0, 3) != "tun") {
                 GTop.get_netload (out netload, device);
                 int new_bytes_out = (int) netload.bytes_out;

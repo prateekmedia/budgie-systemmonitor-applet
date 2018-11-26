@@ -1,3 +1,17 @@
+/*
+* Copyright (c) 2018 Dirli <litandrej85@gmail.com>
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*/
+
 namespace SysMonitorApplet {
     public class Plugin : GLib.Object, Budgie.Plugin {
         public Budgie.Applet get_panel_widget(string uuid) {return new Applet(uuid);}
@@ -25,7 +39,6 @@ namespace SysMonitorApplet {
         private Settings? settings;
 
         public Applet(string uuid) {
-            print ("construct");
             Object(uuid: uuid);
 
             settings_schema = "com.github.dirli.budgie-sys-monitor-applet";
@@ -60,12 +73,14 @@ namespace SysMonitorApplet {
                 if (e.button != 1) {
                     return Gdk.EVENT_PROPAGATE;
                 }
+
                 if (popover.get_visible()) {
                     popover.hide();
                 } else {
                     source_id_pop = GLib.Timeout.add_full(GLib.Priority.DEFAULT, 1000, update_popover);
                     this.manager.show_popover(widget);
                 }
+
                 return Gdk.EVENT_STOP;
             });
 
@@ -98,6 +113,7 @@ namespace SysMonitorApplet {
                     } else {
                         cpu_label.set_visible(false);
                     }
+
                     break;
                 case "show-ram":
                     mem_val.set_visible(ram_flag);
@@ -106,6 +122,7 @@ namespace SysMonitorApplet {
                     } else if (title_flag) {
                         mem_label.set_visible(false);
                     }
+
                     break;
                 case "show-cpu":
                     cpu_val.set_visible(cpu_flag);
@@ -155,10 +172,10 @@ namespace SysMonitorApplet {
         }
     }
 
-    void print(string? message) {
+    /* void print(string? message) {
         if (message == null) message = "";
         stdout.printf ("Budgie-Sys-Monitor: %s\n", message);
-    }
+    } */
 
 }
 
