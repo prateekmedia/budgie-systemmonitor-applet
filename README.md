@@ -1,6 +1,17 @@
 # System monitor applet
 A budgie-desktop applet to show frequency, ram, swap, network.
 
+![Screenshot](data/screenshot1.png)  
+
+### Popover-main
+![Screenshot](data/screenshot2.png)  
+
+### Popover-settings
+![Screenshot](data/screenshot3.png)
+
+---
+
+
 ## Dependencies
 ```
 vala
