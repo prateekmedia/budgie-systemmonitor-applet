@@ -46,6 +46,7 @@ add_project_arguments(
 LIB_INSTALL_DIR = join_paths(get_option('prefix'), get_option('libdir'), 'budgie-desktop', 'plugins', meson.project_name())
 
 subdir('data')
+subdir('po')
 subdir('src')
 
 meson.add_install_script('meson/meson_post_install.py')

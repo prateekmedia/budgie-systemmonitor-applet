@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the network-indicator package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: budgie-sys-monitor-applet\n"
+"POT-Creation-Date: 2018-11-26 12:46+0300\n"
+"PO-Revision-Date: 2018-11-26 12:57+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ../src\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Last-Translator: \n"
+"Language: ru\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: Utils.vala\n"
+
+#: Widgets/MainView.vala:40
+msgid "Frequency:"
+msgstr "Частота:"
+
+#: Widgets/MainView.vala:44
+msgid "Ram:"
+msgstr "Память:"
+
+#: Widgets/MainView.vala:47
+msgid "Swap:"
+msgstr "Подкачка:"
+
+#: Widgets/MainView.vala:50
+msgid "Uptime:"
+msgstr "Работает:"
+
+#: Widgets/MainView.vala:54
+msgid "Network"
+msgstr "Сеть"
+
+#: Widgets/Popover.vala:29
+msgid "Main"
+msgstr "Основная"
+
+#: Widgets/Popover.vala:30
+msgid "Settings"
+msgstr "Настройки"
+
+#: Widgets/SettingsView.vala:29
+msgid "Show title's"
+msgstr "Показать заголовки"
+
+#: Widgets/SettingsView.vala:36
+msgid "Show cpu"
+msgstr "Показать cpu"
+
+#: Widgets/SettingsView.vala:42
+msgid "Show ram"
+msgstr "Показать ram"
+
+#: Widgets/SettingsView.vala:48
+msgid "Update interval (s)"
+msgstr "Частота обнов.(с)"
