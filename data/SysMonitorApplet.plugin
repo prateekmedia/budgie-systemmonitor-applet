@@ -1,0 +1,7 @@
+[Plugin]
+Module=libbudgiesmapplet.so
+Name=Budgie system monitor
+Description=System monitor applet
+Authors=Dirli
+Website=https://github.com/Dirli/budgie-sys-monitor-applet
+Icon=applications-system-symbolic
