@@ -139,7 +139,6 @@ namespace SysMonitorApplet {
         }
 
         private void enable_timer () {
-
             if (source_id > 0) {
                 Source.remove(source_id);
             }
@@ -151,14 +150,24 @@ namespace SysMonitorApplet {
 
         private unowned bool update () {
             if (ram_flag) {
-                mem_val.label = " %d%% ".printf(Providers.Memory.memory_percent);
+                set_value (mem_val, Providers.Memory.memory_percent);
             }
 
             if (cpu_flag) {
-                cpu_val.label = " %d%% ".printf(Providers.CPU.percentage_used);
+                set_value (cpu_val, Providers.CPU.percentage_used);
             }
 
             return true;
+        }
+
+        private void set_value (Gtk.Label changeable_label, int val) {
+            changeable_label.label = " %d%% ".printf(val);
+            Gtk.StyleContext ctx = changeable_label.get_style_context();
+            if (val > 85 && !ctx.has_class("alert")) {
+                ctx.add_class("alert");
+            } else if (val < 85 && ctx.has_class("alert")) {
+                ctx.remove_class("alert");
+            }
         }
 
         private unowned bool update_popover () {
