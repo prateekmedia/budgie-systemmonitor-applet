@@ -26,7 +26,7 @@ gee-0.8
 
 ### Installing from source
 ```
-meson build --prefix /usr --buildtype=plain
+meson build --prefix=/usr --buildtype=plain
 ninja -C build
 sudo ninja -C build install
 ```
