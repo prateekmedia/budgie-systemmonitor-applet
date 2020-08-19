@@ -23,7 +23,7 @@ public class SysMonitorApplet.Providers.Net  : GLib.Object {
         for (uint j = 0; j < netlist.number; ++j) {
             var device = devices[j];
 
-            if (device != "lo" && device.substring (0, 3) != "tun") {
+            if (device != "lo" && !device.has_prefix ("tun") && !device.has_prefix ("br") && !device.has_prefix ("veth") && !device.has_prefix ("vir")) {
                 devices_map[device] = "0:0";
             }
         }
@@ -38,7 +38,7 @@ public class SysMonitorApplet.Providers.Net  : GLib.Object {
         for (uint j = 0; j < netlist.number; ++j) {
             var device = devices[j];
 
-            if (device != "lo" && device.substring (0, 3) != "tun") {
+            if (device != "lo" && !device.has_prefix ("tun") && !device.has_prefix ("br") && !device.has_prefix ("veth") && !device.has_prefix ("vir")) {
                 GTop.get_netload (out netload, device);
                 int new_bytes_out = (int) netload.bytes_out;
                 int new_bytes_in = (int) netload.bytes_in;

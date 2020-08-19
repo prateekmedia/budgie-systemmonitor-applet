@@ -58,34 +58,42 @@ namespace SysMonitorApplet {
             valign = Gtk.Align.CENTER;
 
             int top = 0;
-            attach (freq_label,         1, top, 1, 1);
-            attach (freq_value_label,   2, top, 1, 1);
+            attach (freq_label,         0, top,   1, 1);
+            attach (freq_value_label,   1, top,   1, 1);
 
-            top += 1;
-            attach (ram_label,          1, top, 1, 1);
-            attach (ram_value_label,    2, top, 1, 1);
+            attach (ram_label,          0, ++top, 1, 1);
+            attach (ram_value_label,    1, top,   1, 1);
 
-            top += 1;
-            attach (swap_label,         1, top, 1, 1);
-            attach (swap_value_label,   2, top, 1, 1);
+            attach (swap_label,         0, ++top, 1, 1);
+            attach (swap_value_label,   1, top,   1, 1);
 
-            top += 1;
-            attach (network_label,       1, top, 2, 1);
+            attach (network_label,      0, ++top, 2, 1);
 
+            var network_grid = new Gtk.Grid ();
+            network_grid.row_spacing = 6;
+            network_grid.column_spacing = 12;
+            network_grid.halign = Gtk.Align.CENTER;
+
+            var network_scrolled = new Gtk.ScrolledWindow (null, null);
+            network_scrolled.max_content_height = 400;
+            network_scrolled.propagate_natural_height = true;
+            network_scrolled.add (network_grid);
+
+            attach (network_scrolled, 0, ++top, 2, 1);
+
+            var i = 0;
             foreach (var entry in net.devices_map.entries) {
-                top += 1;
                 var net_label = create_name_label (entry.key);
                 var net_value_label = create_value_label ();
                 net_value_label.set_width_chars (10);
                 net_value_label.set_justify (Gtk.Justification.FILL);
                 net_map[entry.key] = net_value_label;
-                attach (net_label,       1, top, 1, 1);
-                attach (net_value_label, 2, top, 1, 1);
+                network_grid.attach (net_label,       0, i);
+                network_grid.attach (net_value_label, 1, i++);
             }
 
-            top += 1;
-            attach (uptime_label,       1, top, 1, 1);
-            attach (uptime_value_label, 2, top, 1, 1);
+            attach (uptime_label,       0, ++top, 1, 1);
+            attach (uptime_value_label, 1, top, 1, 1);
         }
 
         private Gtk.Label create_name_label (string label_name) {
