@@ -6,6 +6,8 @@
 System Monitor that can help you track your cpu, ram, swap, network and uptime.  
 ***Made with ♥️ for budgie desktop.***
 
+Fork of [Dirli/budgie-sys-monitor-applet](https://github.com/Dirli/budgie-sys-monitor-applet)
+
 ![Screenshot](data/screenshot1.png)  
 
 ### Popover
