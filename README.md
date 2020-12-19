@@ -1,34 +1,39 @@
-# System monitor applet
-A budgie-desktop applet to show frequency, ram, swap, network.
+<h1 align="center">System monitor applet</h1>
+<p align="center">
+<a href="https://github.com/prateekmedia/budgie-systemmonitor-applet/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/prateekmedia/budgie-systemmonitor-applet?color=blueviolet"/></a> <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/prateekmedia/budgie-systemmonitor-applet?color=blueviolet"/></a> <a href="https://github.com/prateekmedia"><img alt="Maintainer" src="https://img.shields.io/badge/Maintainer-prateekmedia-blueviolet"/></a>
+</p>
 
-## Notice: sorry, I don't use Budgie anymore
+System Monitor that can help you track your cpu, ram, swap, network and uptime.  
+***Made with ♥️ for budgie desktop.***
 
 ![Screenshot](data/screenshot1.png)  
 
-### Popover-main
-![Screenshot](data/screenshot2.png)  
-
-### Popover-settings
-![Screenshot](data/screenshot3.png)
+### Popover
+![Screenshot](data/screenshot2.png) ![Screenshot](data/screenshot3.png)
 
 ---
 
 
 ## Dependencies
+These dependencies are required if you want to [Build From Source](#Building-from-source)
+
+**For Solus**
 ```
-vala
-gtk+-3.0 >= 3.18
-budgie-1.0 >= 2
-glib-2.0 >= 2.46.0
-libpeas-1.0 >= 1.8.0
-gobject-2.0
-libgtop-2.0
-gee-0.8
+$ sudo eopkg it budgie-desktop-devel vala -c system.devel libgtop-devel
 ```
 
-### Installing from source
+**For Debian/ Ubuntu based Distro**
 ```
-meson build --prefix=/usr --buildtype=plain
-ninja -C build
-sudo ninja -C build install
+$ sudo apt install budgie-core-dev meson valac 
+```
+**For Arch based Distro**
+```
+$ sudo pacman -S budgie-desktop
+```
+
+### Building from source
+```
+$ meson build --prefix=/usr --buildtype=plain
+
+$ sudo ninja -C build install
 ```
