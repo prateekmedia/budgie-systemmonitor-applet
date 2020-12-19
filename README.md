@@ -16,7 +16,7 @@ Fork of [Dirli/budgie-sys-monitor-applet](https://github.com/Dirli/budgie-sys-mo
 ---
 
 
-## Dependencies
+### Dependencies
 These dependencies are required if you want to [Build From Source](#Building-from-source)
 
 **For Solus**
