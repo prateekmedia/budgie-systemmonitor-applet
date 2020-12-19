@@ -21,16 +21,16 @@ These dependencies are required if you want to [Build From Source](#Building-fro
 
 **For Solus**
 ```
-$ sudo eopkg it budgie-desktop-devel vala -c system.devel libgtop-devel
+$ sudo eopkg it budgie-desktop-devel vala -c system.devel libgee-devel libgtop-devel
 ```
 
 **For Debian/ Ubuntu based Distro**
 ```
-$ sudo apt install budgie-core-dev meson valac 
+$ sudo apt install budgie-core-dev libgee-0.8-dev libgtop-2.0 meson valac 
 ```
 **For Arch based Distro**
 ```
-$ sudo pacman -S budgie-desktop
+$ sudo pacman -S budgie-desktop libgee libgtop
 ```
 
 ### Building from source
