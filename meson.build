@@ -1,4 +1,4 @@
-project('budgie-sys-monitor-applet',
+project('com.prateekmedia.systemmonitor',
     ['c', 'vala'],
     version: '0.1.2',
     license: 'GPL-2.0',
@@ -38,14 +38,24 @@ dep_gobject = dependency('gobject-2.0')
 dep_gtop = dependency('libgtop-2.0')
 dep_libgee = dependency('gee-0.8')
 
+prefix = get_option('prefix')
+libdir = join_paths(prefix, get_option('libdir'))
+datadir = join_paths(prefix, get_option('datadir'))
+
+PIXMAPS_DIR = join_paths(datadir, 'pixmaps')
+
 add_project_arguments(
     '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
     language:'c'
 )
 
-LIB_INSTALL_DIR = join_paths(get_option('prefix'), get_option('libdir'), 'budgie-desktop', 'plugins', meson.project_name())
+LIB_INSTALL_DIR = join_paths(libdir, 'budgie-desktop', 'plugins', meson.project_name())
 
-subdir('data')
+install_data('schema/com.prateekmedia.systemmonitor.gschema.xml',
+    install_dir: '/usr/share/glib-2.0/schemas'
+)
+
+subdir('icons')
 subdir('po')
 subdir('src')
 

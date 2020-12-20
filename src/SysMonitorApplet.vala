@@ -25,12 +25,34 @@ namespace SysMonitorApplet {
         SysMonitorApplet.Widgets.Popover? popover_grid = null;
 
         private Gtk.Label mem_val;
+        private Gtk.Image mem_image;
         private Gtk.Label mem_label;
+        
         private Gtk.Label cpu_val;
         private Gtk.Label cpu_label;
+        private Gtk.Image cpu_image;
+        
+        private Gtk.Label netu_val;
+        private Gtk.Image netu_image;
+        private Gtk.Label netu_label;
+        
+        private Gtk.Label netd_val;
+        private Gtk.Label netd_label;
+        private Gtk.Image netd_image;
+        
+        private Gtk.Label netc_val;
+        private Gtk.Image netc_image;
+        private Gtk.Label netc_label;
+        
+        private Gtk.Label nett_val;
+        private Gtk.Label nett_label;
+        private Gtk.Image nett_image;
 
-        private bool ram_flag;
         private bool cpu_flag;
+        private bool ram_flag;
+        private bool nets_flag;
+        private bool netc_flag;
+        private bool nett_flag;
 
         public string uuid { public set; public get; }
         private uint source_id;
@@ -41,22 +63,46 @@ namespace SysMonitorApplet {
         public Applet(string uuid) {
             Object(uuid: uuid);
 
-            settings_schema = "com.github.dirli.budgie-sys-monitor-applet";
-            settings_prefix = "/com/github/dirli/budgie-sys-monitor-applet";
+            settings_schema = "com.prateekmedia.systemmonitor";
+            settings_prefix = "/com/prateekmedia/systemmonitor";
             settings = get_applet_settings(uuid);
             settings.changed.connect(on_settings_change);
 
             cpu_label = new Gtk.Label ("cpu");
+            cpu_image = new Gtk.Image.from_icon_name("cpu-symbolic", Gtk.IconSize.BUTTON);
             cpu_val = new Gtk.Label ("-");
 
             mem_label = new Gtk.Label ("mem");
+            mem_image = new Gtk.Image.from_icon_name("ram-symbolic", Gtk.IconSize.BUTTON);
             mem_val = new Gtk.Label ("-");
+            
+            netu_label = new Gtk.Label ("up");
+            netu_image = new Gtk.Image.from_icon_name("net-up-symbolic", Gtk.IconSize.BUTTON);
+            netu_val = new Gtk.Label ("-");
 
-            Gtk.Box box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            box.pack_start (cpu_label, false, false, 0);
-            box.pack_start (cpu_val, false, false, 0);
-            box.pack_start (mem_label, false, false, 0);
-            box.pack_start (mem_val, false, false, 0);
+            netd_label = new Gtk.Label ("down");
+            netd_image = new Gtk.Image.from_icon_name("net-down-symbolic", Gtk.IconSize.BUTTON);
+            netd_val = new Gtk.Label ("-");
+            
+            netc_label = new Gtk.Label ("total");
+            netc_image = new Gtk.Image.from_icon_name("net-compact-symbolic", Gtk.IconSize.BUTTON);
+            netc_val = new Gtk.Label ("-");
+
+            nett_label = new Gtk.Label ("data");
+            nett_image = new Gtk.Image.from_icon_name("net-sigma-symbolic", Gtk.IconSize.BUTTON);
+            nett_val = new Gtk.Label ("-");
+
+            Gtk.Box box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            
+            Gtk.Image[] elements = {cpu_image, mem_image, netu_image, netd_image, netc_image, nett_image};
+            Gtk.Label[] e_labels = {cpu_label, mem_label, netu_label, netd_label, netc_label, nett_label};
+            Gtk.Label[] e_vals = {cpu_val, mem_val, netu_val, netd_val, netc_val, nett_val};
+            
+            for(int i=0; i < elements.length; i++){
+                box.pack_start (elements[i], false, false, 0);
+                box.pack_start (e_labels[i], false, false, 0); 
+                box.pack_start (e_vals[i], false, false, 0);
+            }
 
             widget = new Gtk.EventBox();
             widget.add(box);
@@ -87,55 +133,74 @@ namespace SysMonitorApplet {
             update ();
             popover.get_child().show_all();
             show_all();
-            on_settings_change ("show-ram");
             on_settings_change ("show-cpu");
+            on_settings_change ("show-ram");
+            on_settings_change ("show-nets");
+            on_settings_change ("show-netc");
+            on_settings_change ("show-nett");
             enable_timer ();
         }
 
         protected void on_settings_change(string key) {
             cpu_flag = settings.get_boolean("show-cpu");
             ram_flag = settings.get_boolean("show-ram");
-            bool title_flag = settings.get_boolean("show-title");
+            nets_flag = settings.get_boolean("show-nets");
+            netc_flag = settings.get_boolean("show-netc");
+            nett_flag = settings.get_boolean("show-nett");
+            int show_what = settings.get_int("show-what");
 
             switch (key) {
                 case "update-interval":
                     enable_timer ();
                     break;
-                case "show-title":
-                    if (ram_flag) {
-                        mem_label.set_visible(title_flag);
-                    } else {
-                        mem_label.set_visible(false);
-                    }
 
-                    if (cpu_flag) {
-                        cpu_label.set_visible(title_flag);
-                    } else {
-                        cpu_label.set_visible(false);
-                    }
-
+                case "show-what":
+                    show_label_or_image(show_what, mem_label, mem_image, ram_flag);
+                    show_label_or_image(show_what, cpu_label, cpu_image, cpu_flag);
+                    show_label_or_image(show_what, netu_label, netu_image, nets_flag);
+                    show_label_or_image(show_what, netd_label, netd_image, nets_flag);
+                    show_label_or_image(show_what, netc_label, netc_image, netc_flag);
+                    show_label_or_image(show_what, nett_label, nett_image, nett_flag);
                     break;
-                case "show-ram":
-                    mem_val.set_visible(ram_flag);
-                    if (ram_flag) {
-                        mem_label.set_visible(title_flag);
-                    } else if (title_flag) {
-                        mem_label.set_visible(false);
-                    }
 
-                    break;
                 case "show-cpu":
-                    cpu_val.set_visible(cpu_flag);
-                    if (cpu_flag) {
-                        cpu_label.set_visible(title_flag);
-                    } else if (title_flag) {
-                        cpu_label.set_visible(false);
-                    }
+                    show_label_or_image(show_what, cpu_label, cpu_image, cpu_flag, cpu_val);
+                    break;
 
+                case "show-ram":
+                    show_label_or_image(show_what, mem_label, mem_image, ram_flag, mem_val);
+                    break;
+
+                case "show-nets":
+                    show_label_or_image(show_what, netu_label, netu_image, nets_flag, netu_val);
+                    show_label_or_image(show_what, netd_label, netd_image, nets_flag, netd_val);
+                    break;
+
+                case "show-netc":
+                    show_label_or_image(show_what, netc_label, netc_image, netc_flag, netc_val);
+                    break;
+
+                case "show-nett":
+                    show_label_or_image(show_what, nett_label, nett_image, nett_flag, nett_val);
                     break;
             }
 
             queue_resize();
+        }
+        
+        protected void show_label_or_image(int show_what, Gtk.Label which_label, Gtk.Image which_image, bool which_flag, Gtk.Label which_val = new Gtk.Label(null)){
+            which_val.set_visible(which_flag);
+            
+            which_label.set_visible(false);
+            which_image.set_visible(false);
+            
+            if(which_flag){
+                if (show_what == 1){
+                    which_label.set_visible(true);
+                } else if (show_what == 2){
+                    which_image.set_visible(true);
+                }
+            }
         }
 
         private void enable_timer () {
@@ -155,6 +220,19 @@ namespace SysMonitorApplet {
 
             if (cpu_flag) {
                 set_value (cpu_val, Providers.CPU.percentage_used);
+            }
+            
+            if (nets_flag) {
+                set_value (netu_val, Providers.CPU.percentage_used);
+                set_value (netd_val, Providers.CPU.percentage_used);
+            }
+            
+            if (netc_flag) {
+                set_value (netc_val, Providers.CPU.percentage_used);
+            }
+            
+            if (nett_flag) {
+                set_value (nett_val, Providers.CPU.percentage_used);
             }
 
             return true;

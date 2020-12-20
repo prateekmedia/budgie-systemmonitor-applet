@@ -20,6 +20,9 @@ bsma_deps = [
     dep_libgee
 ]
 
+install_data('SysMonitorApplet.plugin',
+             install_dir: LIB_INSTALL_DIR)
+
 shared_library('budgiesmapplet',
     bsma_sources,
     dependencies: bsma_deps,

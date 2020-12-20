@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="com.prateekmedia.systemmonitor">
+    <key type="i" name="show-what">
+      <default>2</default>
+      <summary>Show What</summary>
+      <description>Whether to display headlines or display images or none on the panel</description>
+    </key>
+    <key type="b" name="show-cpu">
+      <default>true</default>
+      <summary>Show CPU</summary>
+      <description>Whether to show cpu info</description>
+    </key>
+    <key type="b" name="show-ram">
+      <default>false</default>
+      <summary>Show Ram</summary>
+      <description>Whether to show ram info</description>
+    </key>
+    <key type="b" name="show-nets">
+      <default>false</default>
+      <summary>Show Net Speed</summary>
+      <description>Whether to show net speed</description>
+    </key>
+    <key type="b" name="show-netc">
+      <default>false</default>
+      <summary>Show Net Total Speed</summary>
+      <description>Whether to show net total speed</description>
+    </key>
+    <key type="b" name="show-nett">
+      <default>false</default>
+      <summary>Show Net Downloaded sum</summary>
+      <description>Whether to show net downloaded sum</description>
+    </key>
+    <key type="i" name="update-interval">
+      <default>2</default>
+      <summary>Update Interval</summary>
+      <description>How many seconds to wait before updating data</description>
+    </key>
+  </schema>
+</schemalist>

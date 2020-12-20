@@ -2,6 +2,6 @@
 Module=libbudgiesmapplet.so
 Name=System monitor
 Description=Applet to show frequency, ram, swap, network
-Authors=Dirli
-Website=https://github.com/Dirli/budgie-sys-monitor-applet
+Authors=Prateek SU
+Website=https://github.com/prateekmedia/budgie-systemmonitor-applet
 Icon=utilities-system-monitor-symbolic
