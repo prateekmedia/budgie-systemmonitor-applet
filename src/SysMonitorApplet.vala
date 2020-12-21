@@ -53,6 +53,9 @@ namespace SysMonitorApplet {
         private bool nets_flag;
         private bool netc_flag;
         private bool nett_flag;
+        
+        public string[] current = {"0","0"};
+        public int[] lastnet = {0,0,0,0};
 
         public string uuid { public set; public get; }
         private uint source_id;
@@ -208,12 +211,29 @@ namespace SysMonitorApplet {
                 Source.remove(source_id);
             }
 
-            uint interval = this.settings.get_int("update-interval");
+            uint interval = settings.get_int("update-interval");
             interval = interval * 1000;
             source_id = GLib.Timeout.add_full(GLib.Priority.DEFAULT, interval, update);
         }
 
         private unowned bool update () {
+            // print("\n 1");
+            Gee.HashMap<string,string> net_val = new Providers.Net ().get_bytes();
+            
+            current = {"0","0"};
+            
+            foreach (var entry in net_val.entries) {
+                string[] val_array = entry.value.split (":");
+                if (val_array[0] != "0" || val_array[1] != "0") {
+                    lastnet[2] = int.parse(val_array[0]) - lastnet[0];
+                    lastnet[3] = int.parse(val_array[1]) - lastnet[1];
+                    lastnet[0] = int.parse(val_array[0]);
+                    lastnet[1] = int.parse(val_array[1]);
+                    current[0] = Utils.format_net_speed (lastnet[2]);
+                    current[1] = Utils.format_net_speed (lastnet[3]);
+                }
+            }
+            
             if (ram_flag) {
                 set_value (mem_val, Providers.Memory.memory_percent);
             }
@@ -223,16 +243,16 @@ namespace SysMonitorApplet {
             }
             
             if (nets_flag) {
-                set_value (netu_val, Providers.CPU.percentage_used);
-                set_value (netd_val, Providers.CPU.percentage_used);
+                set_net_value (netu_val, current[0]);
+                set_net_value (netd_val, current[1]);
             }
             
             if (netc_flag) {
-                set_value (netc_val, Providers.CPU.percentage_used);
+                set_net_value (netc_val, Utils.format_net_speed (lastnet[2] + lastnet[3]));
             }
             
             if (nett_flag) {
-                set_value (nett_val, Providers.CPU.percentage_used);
+                set_net_value (nett_val, Utils.format_net_speed (lastnet[0] + lastnet[1], true));
             }
 
             return true;
@@ -246,6 +266,10 @@ namespace SysMonitorApplet {
             } else if (val < 85 && ctx.has_class("alert")) {
                 ctx.remove_class("alert");
             }
+        }
+
+        private void set_net_value (Gtk.Label changeable_label, string val) {
+            changeable_label.label = val;
         }
 
         private unowned bool update_popover () {

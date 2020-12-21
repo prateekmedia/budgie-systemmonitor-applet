@@ -65,9 +65,12 @@ namespace SysMonitorApplet {
 
             return pattern.printf (val);
         }
-
-        public static string format_net_speed (int bytes, bool round) {
-            string[] sizes = { " B/s", "KB/s", "MB/s", "GB/s", "TB/s" };
+        
+        public static string format_net_speed (int bytes, bool round = false, bool size = false) {
+            string[] sizes = { "B/s", "KB/s", "MB/s", "GB/s", "TB/s" };
+            if (size){
+                sizes = { "B", "KB", "MB", "GB", "TB" };
+            }
             double len = (double) bytes;
             int order = 0;
             string speed = "";
@@ -83,11 +86,14 @@ namespace SysMonitorApplet {
             }
 
             if (round == true) {
-                speed = "%3.0f %s".printf(len, sizes[order]);
+                speed = "%.1f %s".printf(len, sizes[order].split ("/")[0]);
             } else {
-                speed = "%3.2f %s".printf(len, sizes[order]);
+                if (order < 2) {
+                    speed = "%.0f %s".printf(len, sizes[order]);
+                } else {
+                    speed = "%.1f %s".printf(len, sizes[order]);
+                }
             }
-
             return speed;
         }
     }

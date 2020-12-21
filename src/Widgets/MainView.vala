@@ -146,7 +146,7 @@ namespace SysMonitorApplet {
             foreach (var entry in net_val.entries) {
                 string[] val_array = entry.value.split (":");
                 var down = Utils.format_net_speed (int.parse(val_array[1]), false);
-                var up = Utils.format_net_speed(int.parse(val_array[0]), false);
+                var up = Utils.format_net_speed (int.parse(val_array[0]), false);
                 net_map[entry.key].set_label ("D: " + down + " \nU: " + up);
             }
         }
