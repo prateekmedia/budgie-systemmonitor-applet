@@ -13,6 +13,8 @@ Fork of [Dirli/budgie-sys-monitor-applet](https://github.com/Dirli/budgie-sys-mo
 ### Popover
 ![Screenshot](data/screenshot2.png) ![Screenshot](data/screenshot3.png)
 
+Screenshots are yet to be updated
+
 ---
 
 
@@ -32,6 +34,8 @@ $ sudo apt install budgie-core-dev libgee-0.8-dev libgtop-2.0 meson valac
 ```
 $ sudo pacman -S budgie-desktop libgee libgtop
 ```
+
+---
 
 ### Building from source
 ```
