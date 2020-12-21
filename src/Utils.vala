@@ -1,10 +1,12 @@
 /*
 * Copyright (c) 2018 Dirli <litandrej85@gmail.com>
 *
+* Copyright (c) 2020 Prateek SU <prateekmedia@github.com>
+*
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -42,9 +44,8 @@ namespace SysMonitorApplet {
         }
         public static string format_frequency (double val) {
             const string[] units = {
-                N_ ("{} kHz"),
-                N_ ("{} MHz"),
-                N_ ("{} GHz")
+                " MHz",
+                " GHz"
             };
             int index = -1;
 
@@ -53,17 +54,13 @@ namespace SysMonitorApplet {
                 ++index;
             }
 
-            if (index < 0) {return ngettext (
-                "%u Hz", "%u Hz", (ulong)val).printf ((uint)val);
+            if (index < 0) {return "0";}
+
+            if (val < 9.95) {
+                return "%.1f %s".printf (val, units[index]);
+            } else {
+                return "%.0f %s".printf (val, units[index]);
             }
-
-            // 4 significant digits
-            var pattern = _ (units[index]).replace ("{}",
-            val <   9.95 ? "%.1f" :
-            val <  99.5  ? "%.0f" :
-            val < 999.5  ? "%.0f" : "%.0f");
-
-            return pattern.printf (val);
         }
         
         public static string format_net_speed (int bytes, bool round = false, bool size = false) {

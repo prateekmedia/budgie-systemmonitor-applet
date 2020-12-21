@@ -1,10 +1,12 @@
 /*
 * Copyright (c) 2018 Dirli <litandrej85@gmail.com>
 *
+* Copyright (c) 2020 Prateek SU <prateekmedia@github.com>
+*
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,33 +32,23 @@ public class SysMonitorApplet.Providers.CPU  : GLib.Object {
         }
     }
 
-    public static double frequency {
-        get {
-            double maxcur = 0;
+    public static double frequency () {
+        double max_freq = 0;
 
-            for (uint i = 0, isize = (int)get_num_processors (); i < isize; ++i) {
-                var cur = 1000.0 * read (i, "scaling_cur_freq");
-
-                if (i == 0) {
-                    maxcur = cur;
-                } else {
-                    maxcur = double.max (cur, maxcur);
-                }
+        for (uint i = 0; i < (int)get_num_processors (); ++i) {
+            string cur_value;
+            try {
+                GLib.FileUtils.get_contents (@"/sys/devices/system/cpu/cpu$i/cpufreq/scaling_cur_freq", out cur_value);
+            } catch (Error e) {
+                cur_value = "0";
             }
 
-            return (double) maxcur;
-        }
-    }
+            var cur = double.parse (cur_value);
 
-    private static double read (uint cpu, string what) {
-        string value;
 
-        try {
-            FileUtils.get_contents (@"/sys/devices/system/cpu/cpu$cpu/cpufreq/$what", out value);
-        } catch (Error e) {
-            value = "0";
+            max_freq = i == 0 ? cur : double.max (cur, max_freq);
         }
 
-        return double.parse (value);
+        return max_freq;
     }
 }
