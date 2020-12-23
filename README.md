@@ -15,6 +15,24 @@ Fork of [Dirli/budgie-sys-monitor-applet](https://github.com/Dirli/budgie-sys-mo
 
 ---
 
+### Why this fork?
++ Orignal Project is abandoned and will not receive any update
+
+### Ok, So what's new?
++ Add Icons for prefix
++ Options to Add Netspeed related things to Panel (See Screenshot)
++ Improved code
+
+---
+
+### Direct Install
+
+**For Debian/ Ubuntu based Distro**
+```
+sudo add-apt-repository ppa:ubuntubudgie/backports
+sudo apt install budgie-sys-monitor-applet
+```
+---
 
 ### Dependencies
 These dependencies are required if you want to [Build From Source](#Building-from-source)
