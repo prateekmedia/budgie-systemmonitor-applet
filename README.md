@@ -13,8 +13,6 @@ Fork of [Dirli/budgie-sys-monitor-applet](https://github.com/Dirli/budgie-sys-mo
 ### Popover
 ![Screenshot](data/screenshot2.png) ![Screenshot](data/screenshot3.png)
 
-Screenshots are yet to be updated
-
 ---
 
 
