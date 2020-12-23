@@ -1,4 +1,4 @@
-<p align="center"><a href="#Why-this-fork?"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/GNOME_System_Monitor_icon_2019.svg"/></a></p>
+<p align="center"><a href="#Why-this-fork"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/GNOME_System_Monitor_icon_2019.svg"/></a></p>
 <h1 align="center">System monitor applet</h1>
 <p align="center">
 <a href="https://github.com/prateekmedia/budgie-systemmonitor-applet/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/prateekmedia/budgie-systemmonitor-applet?color=blueviolet"/></a> <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/prateekmedia/budgie-systemmonitor-applet?color=blueviolet"/></a> <a href="https://github.com/prateekmedia"><img alt="Maintainer" src="https://img.shields.io/badge/Maintainer-prateekmedia-blueviolet"/></a>
