@@ -1,6 +1,6 @@
 project('com.prateekmedia.systemmonitor',
     ['c', 'vala'],
-    version: '0.1.2',
+    version: 'v0.2.1',
     license: 'GPL-2.0',
     default_options: [
         'c_std=c11',
